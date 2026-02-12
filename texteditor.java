@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+
 public class texteditor extends JFrame implements ActionListener {
 JTextArea editor;
 JScrollPane scrollBar; //scroll bar
@@ -104,10 +105,15 @@ texteditor(){
     menuBar.add(menu);
 
 // clock set up
+    // Hour:minute: AM/PM
     time = new SimpleDateFormat("hh:mm a");
     getTime = time.format(Calendar.getInstance().getTime());
     clock = new JLabel( getTime);
-
+    // updates clock label every 30 seconds for more accuracy by checking 2x every minute instead of once
+    Timer setClock = new Timer(30000, e -> {
+        clock.setText(time.format(Calendar.getInstance().getTime()));
+    });
+    setClock.start();
 
     // entire layout
     this.setJMenuBar(menuBar);
